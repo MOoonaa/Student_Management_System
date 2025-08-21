@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Admin Dashboard</h2>
+
+    <!-- Add Student Form -->
+    <h3>Add Student</h3>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="grade" placeholder="Grade">
+        <input type="number" name="absence" placeholder="Absences" value="0" min="0">
+        <button type="submit" name="add_student">Add Student</button>
+    </form>
+
+    <hr>
+
+    <!-- Student List -->
+    <h3>All Students</h3>
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Grade</th>
+                <th>Absences</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <!-- Update Form -->
+                <form method="post">
+                    {% csrf_token %}
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>
+                        <input type="text" name="grade" value="{{ student.grade }}">
+                    </td>
+                    <td>
+                        <input type="number" name="absence" value="{{ student.absences }}">
+                    </td>
+                    <td>
+                        <input type="hidden" name="student_id" value="{{ student.id }}">
+                        <button type="submit" name="update_student">Update</button>
+                    </td>
+                </form>
+
+                <!-- Delete Form -->
+                <form method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="student_id" value="{{ student.id }}">
+                    <td>
+                        <button type="submit" name="delete_student" onclick="return confirm('Are you sure?');">Delete</button>
+                    </td>
+                </form>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
