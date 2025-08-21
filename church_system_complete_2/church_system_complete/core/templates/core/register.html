@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register New Account</title>
+    <style>
+        /* 🌍 General page styles */
+        body {
+            background-color: #6a0dad; /* Purple background */
+            font-family: Arial, sans-serif;
+            color: #fff;
+            display: flex;               /* Center content */
+            justify-content: center;     /* Horizontally */
+            align-items: center;         /* Vertically */
+            height: 100vh;               /* Full screen height */
+            margin: 0;
+        }
+
+        /* 📦 Registration box container */
+        .register-box {
+            background: rgba(0,0,0,0.5); /* Transparent black background */
+            padding: 40px;
+            border-radius: 15px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3); /* Soft shadow */
+        }
+
+        /* 🏷️ Page title */
+        h1 {
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        /* 📝 Input fields */
+        input[type=text],
+        input[type=password],
+        input[type=email] {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            outline: none; /* Remove default focus border */
+            font-size: 14px;
+        }
+
+        /* 🔘 Register button */
+        button {
+            background-color: #4b0082;   /* Dark purple */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 95%;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        /* 🎭 Hover effect for button */
+        button:hover {
+            background-color: white;
+            color: #4b0082;
+        }
+
+        /* 🔗 Links */
+        a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <!-- Page header -->
+        <h1>Register New Account</h1>
+
+        <!-- Registration form -->
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Django will render form fields here -->
+            <button type="submit">Register Now</button>
+        </form>
+
+        <!-- Login link -->
+        <a href="{% url 'login' %}">Already have an account? Log in</a>
+    </div>
+</body>
+</html>

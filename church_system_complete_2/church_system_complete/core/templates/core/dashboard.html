@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الطالب</title>
+    <style>
+        /* 🌍 General page styles */
+        body {
+            background-color: #6a0dad; /* Purple background */
+            font-family: Arial, sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 📦 Main content container */
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: rgba(0,0,0,0.5); /* Semi-transparent black box */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3); /* Soft shadow */
+        }
+
+        /* 🏷️ Page title */
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* 📝 Profile information text */
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* 🔘 Logout button (styled as link) */
+        a.logout {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            background: #4b0082; /* Dark purple */
+            padding: 10px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        /* 🎭 Hover effect for logout */
+        a.logout:hover {
+            background: #fff;
+            color: #4b0082;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Dynamic student dashboard content -->
+        <h1>أهلاً بك، {{ profile.user.username }}</h1>
+
+        <!-- Student details from Student model -->
+        <p>الاسم: {{ profile.name }}</p>
+        <p>عدد مرات الغياب: {{ profile.absences }}</p>
+        <p>المستوى: {{ profile.grade }}</p>
+        <p>المعدل التراكمي: {{ profile.score }}</p>
+
+        <!-- Logout button -->
+        <a href="{% url 'logout' %}" class="logout">تسجيل الخروج</a>
+    </div>
+</body>
+</html>

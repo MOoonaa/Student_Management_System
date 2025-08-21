@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>📊 Admin Dashboard</h2>
+
+    <!-- =========================
+         Add Student Form
+         ========================= -->
+    <h3>➕ Add Student</h3>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Student input fields -->
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="grade" placeholder="Grade">
+        <input type="number" name="absences" placeholder="Absences" value="0" min="0">
+
+        <!-- Add button -->
+        <button type="submit" name="add_student">Add Student</button>
+    </form>
+
+    <hr>
+
+    <!-- =========================
+         Student List Table
+         ========================= -->
+    <h3>📋 All Students</h3>
+    <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse; text-align:center;">
+        <thead style="background:#2f80ed; color:white;">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Grade</th>
+                <th>Absences</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <!-- =========================
+                     Update Student Form
+                     ========================= -->
+                <form method="post">
+                    {% csrf_token %}
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>
+                        <input type="text" name="grade" value="{{ student.grade }}">
+                    </td>
+                    <td>
+                        <input type="number" name="absences" value="{{ student.absences }}">
+                    </td>
+                    <td>
+                        <input type="hidden" name="student_id" value="{{ student.id }}">
+                        <button type="submit" name="update_student">💾 Update</button>
+                    </td>
+                </form>
+
+                <!-- =========================
+                     Delete Student Form
+                     ========================= -->
+                <form method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="student_id" value="{{ student.id }}">
+                    <td>
+                        <button type="submit" name="delete_student" onclick="return confirm('Are you sure?');">🗑️ Delete</button>
+                    </td>
+                </form>
+            </tr>
+        {% empty %}
+            <!-- If no students exist -->
+            <tr>
+                <td colspan="6">No students found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
